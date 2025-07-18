@@ -2,9 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+ "scripts": {
+    "start": "node server.js",
+    "dev": "cls && nodemon app.js",
+    "dev1": "clear && nodemon app.js",
+    "test": "nyc _mocha --timeout 10000 --exit --report lcovonly -- -R spec",
+    "lint": "eslint --fix --config .eslintrc.json \"**/*.js\""
   },
   "author": "",
   "license": "ISC",
