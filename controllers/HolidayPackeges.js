@@ -83,6 +83,9 @@ const deletePackeges=async(req,res)=>{
   }
 }
 const getPackeges=async(req,res)=>{
+  console.log("you got the routes")
+
+  
     try {
     const {
       page = 1,
