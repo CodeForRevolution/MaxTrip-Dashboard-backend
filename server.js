@@ -33,6 +33,9 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true  }));
 
+const morgan = require('morgan');
+app.use(morgan('dev')); 
+
 
 // db connection
 const connectDB = require('./config/db');
@@ -53,13 +56,20 @@ const CategoryRoutes =require('./routes/category')
 const EnquiryRoutes =require('./routes/Enquiry')
 const BlogRoutes =require('./routes/Blog')
 const DestinationRoutes =require('./routes/Destination')
+const AirManagement=require("./routes/AirManagement/routes")
 const PageRoutes =require('./routes/Page')
+
 app.use('/v1/api', HolidayPackageRoutes);
 app.use('/v1/api', CategoryRoutes);
 app.use('/v1/api', EnquiryRoutes );
 app.use('/v1/api', PageRoutes);
 app.use('/v1/api', BlogRoutes);
 app.use('/v1/api', DestinationRoutes);
+app.use('/api/v1/airmanagment', AirManagement);
+
+// app.use('/', (req,res)=>{
+// res.send("Wow your maxTrip server is on ")
+// });
 
 app.use((error,req,res,next)=>{
 console.log(error);
@@ -158,7 +168,3 @@ app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
 
-// app.use(cors(corsOptions));
-// 
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.static('public'));
