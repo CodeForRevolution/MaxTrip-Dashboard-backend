@@ -34,18 +34,35 @@ exports.getAllDates = async (req, res) => {
 
     const skip = Math.max(0, parseInt(page, 10) - 1) * parseInt(pageSize, 10);
 
-    const pipeline = [
-   
-//       {
-//   $match: {
-//   date: {
-//     $gte: new Date(fromDate),
-//     $lte: new Date(toDate),
-//   },
-// }
-// },
+    let dateMatch = {};
 
-      
+    if (fromDate && toDate) {
+      dateMatch.date = {
+        $gte: new Date(`${fromDate}T00:00:00.000Z`),
+        $lte: new Date(`${toDate}T23:59:59.999Z`),
+      };
+    } else if (fromDate) {
+      dateMatch.date = {
+        $gte: new Date(`${fromDate}T00:00:00.000Z`),
+     
+      };
+    } else if (toDate) {
+      dateMatch.date = {
+        $lte: new Date(`${toDate}T23:59:59.999Z`),
+      };
+    }
+
+    const pipeline = [
+      {
+        $match: {
+          date: {
+            // $gte: new Date("2025-08-03T00:00:00.000Z"),
+            // $lte: new Date("2025-08-03T23:59:59.999Z"),
+           ... dateMatch.date
+          },
+        },
+      },
+
       {
         $lookup: {
           from: "seats",
@@ -87,7 +104,7 @@ exports.getAllDates = async (req, res) => {
       },
 
       {
-        $sort: { ['date']: Number(direction) },
+        $sort: { ["date"]: Number(direction) },
       },
       {
         $facet: {

@@ -38,7 +38,7 @@ const seatSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["Confirmed", "Cancelled", "Pending", "Refund"],
-      default: "Confirmed",
+      default: "Pending",
     },
     email: {
       type: String,
