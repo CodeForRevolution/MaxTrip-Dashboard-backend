@@ -5,6 +5,7 @@ const segment = require("../../controllers/AirManagement/segment/routes");
 const inventory = require("../../controllers/AirManagement/Inventory/routes");
 const dates = require("../../controllers/AirManagement/Dates/routes");
 const seat = require("../../controllers/AirManagement/Seats/routes");
+const user = require("../../controllers/AirManagement/Users/routes");
 
 router.use("/airport", airPorts);
 router.use("/airline", airlines);
@@ -13,5 +14,6 @@ router.use("/inventory", inventory);
 router.use("/inventory", inventory);
 router.use("/dates", dates);
 router.use("/seat",seat);
+router.use("/user",user);
 
 module.exports = router;
